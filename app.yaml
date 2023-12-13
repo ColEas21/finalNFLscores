@@ -1,0 +1,14 @@
+runtime: python39  # Use the Python 3.9 runtime, you can choose a different version
+
+instance_class: F2 # You can specify the instance class based on your requirements
+
+entrypoint: gunicorn -b :$PORT appReal:app  # Use Gunicorn as the web server
+
+env_variables:
+  FLASK_ENV: production
+  SECRET_KEY: f3f3034a1526efae434e38aaade8c28e  # Set your Flask app's secret key here
+
+handlers:
+- url: /.*
+  script: auto
+

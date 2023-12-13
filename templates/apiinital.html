@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Scores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Adjust the gap as needed */
+        }
+
+        .score-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .team {
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .star {
+            color: gold;
+            margin-right: 5px;
+        }
+
+        .score {
+            font-size: 24px;
+            margin-top: 5px;
+        }
+
+        .completed {
+            color: #28a745;
+        }
+
+        .not-completed {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>NFL Scores</h1>
+	<h2>Powered by The Odds API on Rapid API</h2>
+
+    {% if nfl_scores %}
+        {% for game in nfl_scores %}
+            <div class="score-card">
+                <div class="team">
+                    {% if game.is_favorite %}
+                        <span class="star">★</span>
+                    {% endif %}
+                    {{ game.home_team }} vs {{ game.away_team }}
+                </div>
+                <div class="score">
+                    {% if game.completed %}
+                        {{ game.home_score | default("N/A") }} - {{ game.away_score | default("N/A") }}
+                        <span class="completed">Completed</span>
+                    {% else %}
+                        Game in progress
+                        <span class="not-completed">In Progress</span>
+                    {% endif %}
+                </div>
+                <div>Last Update: {{ game.last_update | default("N/A") }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No NFL scores available.</p>
+    {% endif %}
+</body>
+</html>
