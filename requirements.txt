@@ -1,0 +1,6 @@
+Flask==3.0.0
+Werkzeug==3.0.1
+gunicorn==20.1.0
+azure-cosmos==4.2.0
+requests==2.26.0
+
